@@ -185,7 +185,7 @@ export function getCustomMetricMetaInfo(metric) {
       }
     },
     swin: {
-      displayName: 'Run',
+      displayName: 'Swim',
       max: 9900,
       unit: 'meters',
       step: 1,
@@ -194,7 +194,7 @@ export function getCustomMetricMetaInfo(metric) {
         return (
           <View>
             <MaterialCommunityIcons
-              name='swin'
+              name='swim'
               color={'black'}
               size={35}
             />

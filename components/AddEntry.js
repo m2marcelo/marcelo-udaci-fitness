@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, TouchableOpacity, Text } from 'react-native'
-import { getCustomMetricMetaInfo, timeToString } from '../utils/helpers'
+import { getCustomMetricMetaInfo, getMetricMetaInfo, timeToString } from '../utils/helpers'
 import UdaciSlider from './UdaciSlider'
 import UdaciStepper from './UdaciSteppers'
 import DateHeader from './DateHeader'
@@ -21,7 +21,7 @@ export default class AddEntry extends Component {
     bike: 0,
     swin:0,
     sleep: 0,
-    eat: 0,
+    eat: 0
   }
 
   increment = (metric) => {
@@ -83,7 +83,7 @@ export default class AddEntry extends Component {
         <DateHeader date={(new Date()).toLocaleDateString()} />
         {Object.keys(metaInfo).map((key) => {
           const { getIcon, type, ...rest } = metaInfo[key]
-          const value = this.setState[key]
+          const value = this.state[key]
 
           return (
             <View key={key}>

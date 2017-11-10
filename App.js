@@ -8,14 +8,19 @@ import {
   TouchableWithoutFeedback // it doesnt change nothing, but it needs a view as a child
 } from 'react-native';
 import AddEntry from './components/AddEntry'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import reducer from './reducers'
 
 export default class App extends React.Component {
 
   render() {
     return (
-      <View>
-        <AddEntry />
-      </View>
+      <Provider store={createStore(reducer)}>
+        <View>
+          <AddEntry />
+        </View>
+      </Provider>
     )
   }
 }

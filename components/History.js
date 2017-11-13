@@ -32,7 +32,7 @@ class History extends Component {
             <Text style={styles.noDataText}>{today}</Text>
           </View>
         : <TouchableOpacity onPress={() => console.log('Pressed')}>
-            {JSON.stringify(metrics)}
+            <Text>{JSON.stringify(metrics)}</Text>
           </TouchableOpacity>}
     </View>
   )

@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import { View, TouchableOpacity, Text } from 'react-native'
-import { getCustomMetricMetaInfo, getMetricMetaInfo, timeToString } from '../utils/helpers'
+import { getCustomMetricMetaInfo, getMetricMetaInfo, getDailyReminderValue, timeToString } from '../utils/helpers'
 import UdaciSlider from './UdaciSlider'
 import UdaciStepper from './UdaciSteppers'
 import DateHeader from './DateHeader'
 import { Ionicons } from '@expo/vector-icons'
 import TextButton from './TextButton'
 import { submitEntry, removeEntry } from '../utils/api'
+import { connect } from 'react-redux'
+import { addEntry } from '../actions'
 
 function SubmitBtn ({onPress}) {
   return (
@@ -17,12 +19,12 @@ function SubmitBtn ({onPress}) {
   )
 }
 
-export default class AddEntry extends Component {
+class AddEntry extends Component {
 
   state = {
     run: 0,
     bike: 0,
-    swin:0,
+    swim:0,
     sleep: 0,
     eat: 0
   }
@@ -55,13 +57,16 @@ export default class AddEntry extends Component {
   submit = () => {
     const key = timeToString()
     const entry = this.state
-
-    // update redux
+console.log('1');
+    this.props.dispatch(addEntry({
+      [key]: entry
+    }))
+    console.log('2');
 
     this.setState(() => ({
       run: 0,
       bike: 0,
-      swin:0,
+      swim:0,
       sleep: 0,
       eat: 0,
     }))
@@ -82,6 +87,10 @@ export default class AddEntry extends Component {
     const key = timeToString()
 
     //navigate to home
+
+    this.props.dispatch(addEntry({
+      [key]: getDailyReminderValue()
+    }))
 
     removeEntry(key)
     // clear local notification
@@ -133,3 +142,12 @@ export default class AddEntry extends Component {
     )
   }
 }
+
+function mapStateToProps(state) {
+  const key = timeToString()
+  return {
+    alreadyLogged: state[key] && typeof state[key].today === 'undefined'
+  }
+}
+
+export default connect (mapStateToProps)(AddEntry)

@@ -3,6 +3,7 @@ import {
   View,
   Text,
   Platform,
+  StatusBar,
   TouchableHighlight, //changes the color of an elemente when it is pressed
   TouchableNativeFeedback, // for android, it gives the ripple effect
   TouchableOpcaity, //changes the opacity of an elemente when it is pressed
@@ -12,10 +13,19 @@ import AddEntry from './components/AddEntry'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { TabNavigator } from 'react-navigation'
-import { purple, white } from './utils/colors'
+import { purple, white, orange } from './utils/colors'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
+import { Constants } from 'expo'
 import reducer from './reducers'
 import History from './components/History'
+
+function UdaciStatusBar ({backgroundColor, ...props}) {
+  return (
+    <View style={{backgroundColor, height: Constants.statusBarHeight}}>
+      <StatusBar translucent backgroundColor={backgroundColor} {...props}/>
+    </View>
+  )
+}
 
 const Tabs = TabNavigator({
   History: {
@@ -61,8 +71,8 @@ export default class App extends React.Component {
     return (
       <Provider store={createStore(reducer)}>
         <View style={{flex: 1}}>
-          <View style={{height: 20}}/>
-            <Tabs />
+          <UdaciStatusBar backgroundColor={orange} barStyle='light-content'/>
+          <Tabs />
         </View>
       </Provider>
     )

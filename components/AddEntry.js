@@ -59,11 +59,9 @@ class AddEntry extends Component {
   submit = () => {
     const key = timeToString()
     const entry = this.state
-console.log('1');
     this.props.dispatch(addEntry({
       [key]: entry
     }))
-    console.log('2');
 
     this.setState(() => ({
       run: 0,
